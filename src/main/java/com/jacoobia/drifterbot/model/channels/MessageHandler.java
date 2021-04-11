@@ -1,4 +1,4 @@
-package com.jacoobia.drifterbot.model;
+package com.jacoobia.drifterbot.model.channels;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.MessageBuilder;

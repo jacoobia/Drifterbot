@@ -1,2 +1,3 @@
 # Project exclude paths
 /target/
+/src/main/resources/config/mybatis-config-live.xml
