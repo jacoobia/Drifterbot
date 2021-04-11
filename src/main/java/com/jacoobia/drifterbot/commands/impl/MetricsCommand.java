@@ -13,6 +13,9 @@ import org.apache.ibatis.session.SqlSession;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * A command to show the current metrics for the bot
+ */
 public class MetricsCommand implements CommandProcessor
 {
     @Override

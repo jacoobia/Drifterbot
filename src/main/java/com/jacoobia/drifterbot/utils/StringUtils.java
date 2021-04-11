@@ -10,16 +10,29 @@ import java.util.List;
  * A universal portable class that I use to manage strings in different ways,
  * updated to include some blank checks.
  */
+@SuppressWarnings("unused")
 public class StringUtils
 {
 
     public static String NEW_LINE = "\n";
 
+    /**
+     * The all in one solution to ensure that a string
+     * has some kind of char value to it
+     * @param string the string to check
+     * @return boolean is the string empty, blank or null
+     */
     public static boolean isEmpty(String string)
     {
         return string == null || string.isEmpty() || isBlank(string);
     }
 
+    /**
+     * Checks if a string is filled with blank spaces
+     * rather than just an empty string
+     * @param string the string to check
+     * @return boolean is it blank or not
+     */
     public static boolean isBlank(String string)
     {
         String[] arr = string.split("(?!^)");
@@ -30,10 +43,11 @@ public class StringUtils
 
     /**
      * Prints a message to the console without colour control
+     * @param message the message to print with a timestamp
      */
     public static void print(String message)
     {
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:MM:SS");
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         String prefix = sdf.format(new Date());
         System.out.println("[" + prefix + "]: " + message);
     }
@@ -41,7 +55,6 @@ public class StringUtils
     /**
      * Takes in a bunch of messages and then prints them
      * one by one to the console.
-     *
      * @param messages the messages you wanna print
      */
     public static void printMultiLine(String... messages)
@@ -54,7 +67,6 @@ public class StringUtils
      * Example usage would be withdrawing 100k of an item
      * from your bank. Converts to 100000 then you can parse
      * it safely.
-     *
      * @param s string input
      * @return our converted string
      */
@@ -75,6 +87,7 @@ public class StringUtils
 
     /**
      * Converts a byte buffer to a string for parsing/reading
+     * @param in the byte buffer input
      */
     public static synchronized String bufferToString(ByteBuffer in)
     {
@@ -89,34 +102,34 @@ public class StringUtils
 
     /**
      * Capitalize the first letter of each word in a string
+     * @param str the string to capitalize
      */
-    public static String capitalize(String s)
+    public static String capitalize(String str)
     {
-        for (int i = 0; i < s.length(); i++)
+        for (int i = 0; i < str.length(); i++)
         {
             if (i == 0)
             {
-                s = String.format("%s%s",
-                        Character.toUpperCase(s.charAt(0)),
-                        s.substring(1));
+                str = String.format("%s%s",
+                        Character.toUpperCase(str.charAt(0)),
+                        str.substring(1));
             }
-            if (!Character.isLetterOrDigit(s.charAt(i)))
+            if (!Character.isLetterOrDigit(str.charAt(i)))
             {
-                if (i + 1 < s.length())
+                if (i + 1 < str.length())
                 {
-                    s = String.format("%s%s%s",
-                            s.subSequence(0, i + 1),
-                            Character.toUpperCase(s.charAt(i + 1)),
-                            s.substring(i + 2));
+                    str = String.format("%s%s%s",
+                            str.subSequence(0, i + 1),
+                            Character.toUpperCase(str.charAt(i + 1)),
+                            str.substring(i + 2));
                 }
             }
         }
-        return s;
+        return str;
     }
 
     /**
      * Parses a string to an int safely
-     *
      * @param s string input
      * @return integer output
      */
@@ -136,7 +149,6 @@ public class StringUtils
 
     /**
      * Converts string list to a single string with spacing.
-     *
      * @param in list of strings
      * @return a built string
      */
@@ -152,6 +164,13 @@ public class StringUtils
         return out.toString();
     }
 
+    /**
+     * Attempts to parse a string to a double to check if it's numeric,
+     * if it fails and throws then it's obviously not numeric thus returns
+     * false
+     * @param str the string to check
+     * @return bool is it numberic
+     */
     public static boolean isNumeric(String str)
     {
         try
@@ -162,6 +181,17 @@ public class StringUtils
         {
             return false;
         }
+    }
+
+    /**
+     * Checks if any strings match a certain string ignoring case
+     * @param value the string to match
+     * @param any the variable length list of strings to check
+     * @return bool did any of them match the value
+     */
+    public static boolean anyEqualsIgnoreCase(String value, String... any)
+    {
+        return Arrays.stream(any).anyMatch(other -> other.equalsIgnoreCase(value));
     }
 
 }

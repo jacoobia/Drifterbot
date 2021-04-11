@@ -1,6 +1,7 @@
 package com.jacoobia.drifterbot;
 
 import com.jacoobia.drifterbot.database.SessionFactory;
+import com.jacoobia.drifterbot.events.hook.JoinLeaveListener;
 import com.jacoobia.drifterbot.events.hook.MessageListener;
 import com.jacoobia.drifterbot.events.hook.ReadyListener;
 import net.dv8tion.jda.api.JDA;
@@ -14,8 +15,6 @@ import java.util.EnumSet;
 
 public class Drifter
 {
-
-    private static final int ERROR = 1;
 
     private static JDA jda;
     public static String guildId;
@@ -45,7 +44,7 @@ public class Drifter
         catch (Exception e)
         {
             e.printStackTrace();
-            System.exit(ERROR);
+            System.exit(1);
         }
     }
 
@@ -53,10 +52,7 @@ public class Drifter
     {
         jda.addEventListener(new MessageListener());
         jda.addEventListener(new ReadyListener());
+        jda.addEventListener(new JoinLeaveListener());
     }
 
-    public static JDA getJda()
-    {
-        return jda;
-    }
 }

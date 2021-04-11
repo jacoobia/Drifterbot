@@ -11,6 +11,14 @@ import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 
 import javax.sql.DataSource;
 
+/**
+ * The SQL sessions factory that builds an SQL sessions using the MyBatis framework
+ * and allows us to get the mappers stored into memory to run basic database operations
+ * using annotations only.
+ * MyBatis also allows for an XML based implementation for more advanced operations but
+ * since we only require basic thing such as select, update etc then using annotations
+ * is way less boilerplate code.
+ */
 public class SessionFactory
 {
 

@@ -5,6 +5,11 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
+/**
+ * Represents our drifter_metrics table, or, more accurately
+ * each instance of this object will represent a single row in
+ * the drifter_metrics table.
+ */
 @Getter
 @Setter
 public class Metrics implements Serializable

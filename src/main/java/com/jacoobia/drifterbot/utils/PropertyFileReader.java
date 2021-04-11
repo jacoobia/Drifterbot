@@ -7,6 +7,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * A reader class for the property file within the resources directory,
+ * uses the .properties file type with the key=value format.
+ */
 public class PropertyFileReader
 {
 

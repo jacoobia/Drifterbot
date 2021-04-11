@@ -7,14 +7,16 @@ import com.jacoobia.drifterbot.database.SessionFactory;
 import com.jacoobia.drifterbot.database.entity.Metrics;
 import com.jacoobia.drifterbot.database.mapper.MetricsMapper;
 import com.jacoobia.drifterbot.model.MetricsDictionary;
-import com.jacoobia.drifterbot.model.channels.ChannelHandler;
 import com.jacoobia.drifterbot.model.channels.audio.AudioFiles;
 import com.jacoobia.drifterbot.model.guilds.DrifterGuild;
-import com.jacoobia.drifterbot.model.guilds.GuildHandler;
-import com.jacoobia.drifterbot.utils.GuildUtils;
+import com.jacoobia.drifterbot.model.guilds.GuildRegister;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 import org.apache.ibatis.session.SqlSession;
 
+/**
+ * A command to play a random "ding" audio clip and increase the total
+ * count of audio clips in the metrics table
+ */
 public class DingCommand implements CommandProcessor
 {
 
@@ -23,13 +25,12 @@ public class DingCommand implements CommandProcessor
     @Override
     public void process(Command command)
     {
-        VoiceChannel voiceChannel = GuildUtils.getMemberVoiceChannel(command.getGuild(), command.getMember());
+        VoiceChannel voiceChannel = command.getVoiceChannel();
         if(voiceChannel != null)
         {
-            String clip = AudioFiles.randomDing();
-            DrifterGuild guild = GuildHandler.getGuild(command.getGuild().getId());
-            ChannelHandler.connect(voiceChannel);
-            guild.queueClip(clip);
+            String clip = AudioFiles.randomAudioFile(AudioFiles.DING_CLIPS);
+            DrifterGuild guild = GuildRegister.getGuild(command.getGuild().getId());
+            guild.queueClip(clip, voiceChannel);
             incrementTotal();
         }
     }
@@ -40,6 +41,10 @@ public class DingCommand implements CommandProcessor
         return command.equals(COMMAND_NAME) || command.startsWith(COMMAND_NAME);
     }
 
+    /**
+     * Load the current total number of dings to date,
+     * increment it by 1 and then save it again
+     */
     private void incrementTotal()
     {
         SqlSession session = Drifter.sessionFactory.getSession();

@@ -10,11 +10,14 @@ import com.jacoobia.drifterbot.model.MetricsDictionary;
 import com.jacoobia.drifterbot.model.channels.ChannelHandler;
 import com.jacoobia.drifterbot.model.channels.audio.AudioFiles;
 import com.jacoobia.drifterbot.model.guilds.DrifterGuild;
-import com.jacoobia.drifterbot.model.guilds.GuildHandler;
-import com.jacoobia.drifterbot.utils.GuildUtils;
+import com.jacoobia.drifterbot.model.guilds.GuildRegister;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 import org.apache.ibatis.session.SqlSession;
 
+/**
+ * A command to play a random "bank N" audio clip and increase the count of motes
+ * banked in the metrics table
+ */
 public class BankCommand implements CommandProcessor
 {
 
@@ -30,12 +33,12 @@ public class BankCommand implements CommandProcessor
             int count = Integer.parseInt(arg);
             String clip = null;
 
-            if(SMALL_BLOCKER == count)
-                clip = AudioFiles.randomSmall();
-            else if(MEDIUM_BLOCKER == count)
-                clip = AudioFiles.randomSmall();
+            if(SMALL_BLOCKER <= count && MEDIUM_BLOCKER > count)
+                clip = AudioFiles.randomAudioFile(AudioFiles.SMALL_BLOCKER);
+            else if(MEDIUM_BLOCKER <= count && LARGE_BLOCKER > count)
+                clip = AudioFiles.randomAudioFile(AudioFiles.MEDIUM_BLOCKER);
             else if(LARGE_BLOCKER == count)
-                clip = AudioFiles.randomSmall();
+                clip = AudioFiles.randomAudioFile(AudioFiles.LARGE_BLOCKER);
 
             if(clip != null)
             {
@@ -55,12 +58,12 @@ public class BankCommand implements CommandProcessor
 
     private void queueClip(Command command, String clip)
     {
-        VoiceChannel voiceChannel = GuildUtils.getMemberVoiceChannel(command.getGuild(), command.getMember());
+        VoiceChannel voiceChannel = command.getVoiceChannel();
         if(voiceChannel != null)
         {
-            DrifterGuild guild = GuildHandler.getGuild(command.getGuild().getId());
+            DrifterGuild guild = GuildRegister.getGuild(command.getGuild().getId());
             ChannelHandler.connect(voiceChannel);
-            guild.queueClip(clip);
+            guild.queueClip(clip, voiceChannel);
         }
     }
 

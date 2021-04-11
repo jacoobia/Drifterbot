@@ -4,6 +4,7 @@ import com.jacoobia.drifterbot.commands.CommandProcessor;
 import com.jacoobia.drifterbot.commands.impl.BankCommand;
 import com.jacoobia.drifterbot.commands.Command;
 import com.jacoobia.drifterbot.commands.impl.DingCommand;
+import com.jacoobia.drifterbot.commands.impl.HostilesCommand;
 import com.jacoobia.drifterbot.commands.impl.MetricsCommand;
 import com.jacoobia.drifterbot.model.channels.MessageHandler;
 import net.dv8tion.jda.api.entities.Message;
@@ -13,18 +14,30 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
+/**
+ * The message listener to listen to whatever type of messages are sent.
+ * Currently only the {@link GuildMessageReceivedEvent} is implemented since
+ * this bot only works with server commands not DM commands.
+ */
 public class MessageListener extends ListenerAdapter
 {
 
     private static final ArrayList<CommandProcessor> commandProcessors = new ArrayList<>();
 
+    /* Register our command processors here! */
     static
     {
         commandProcessors.add(new DingCommand());
         commandProcessors.add(new MetricsCommand());
         commandProcessors.add(new BankCommand());
+        commandProcessors.add(new HostilesCommand());
     }
 
+    /**
+     * Loop through each of the command processors and find the relevant
+     * one for the command that was used and process the command.
+     * @param command the command arguments object to process
+     */
     private void processCommands(Command command)
     {
         for(CommandProcessor processor : commandProcessors)

@@ -3,9 +3,15 @@ package com.jacoobia.drifterbot.model.channels.audio;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.playback.AudioFrame;
 import net.dv8tion.jda.api.audio.AudioSendHandler;
+import net.dv8tion.jda.api.entities.VoiceChannel;
 
 import java.nio.ByteBuffer;
 
+/**
+ * The Audio sender that will encode and send audio data
+ * to whatever {@link VoiceChannel} the bot is connected
+ * to in a server.
+ */
 public class AudioSender implements AudioSendHandler
 {
 

@@ -9,6 +9,11 @@ import javax.sql.DataSource;
 import static com.jacoobia.drifterbot.database.DataSourceFactory.DataSourceProperty.*;
 import static com.jacoobia.drifterbot.utils.PropertyFileReader.read;
 
+/**
+ * The datasource factory that builds a datasource on demand,
+ * only used once but keeps things small and neat and builds our
+ * {@link MysqlDataSource} object.
+ */
 public class DataSourceFactory
 {
 
@@ -24,6 +29,11 @@ public class DataSourceFactory
         private final String property;
     }
 
+    /**
+     * Reads the property file to load the database
+     * details and then build our datasource
+     * @return a {@link MysqlDataSource} object
+     */
     public static DataSource getDataSource()
     {
         MysqlDataSource dataSource = new MysqlDataSource();

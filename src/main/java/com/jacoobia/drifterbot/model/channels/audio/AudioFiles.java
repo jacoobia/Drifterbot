@@ -6,46 +6,40 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * The Audio file cache storing the information about
+ * each audio clip ready to be grabbed on demand.
+ */
 public class AudioFiles
 {
 
-    private static final List<String> DING_CLIPS = new ArrayList<>();
-    private static final List<String> SMALL_BLOCKER = new ArrayList<>();
-    private static final List<String> HOSTILES = new ArrayList<>();
-    private static final List<String> VEX = new ArrayList<>();
+    public static final List<String> DING_CLIPS = new ArrayList<>();
+    public static final List<String> SMALL_BLOCKER = new ArrayList<>();
+    public static final List<String> MEDIUM_BLOCKER = new ArrayList<>();
+    public static final List<String> LARGE_BLOCKER = new ArrayList<>();
+    public static final List<String> HOSTILES = new ArrayList<>();
+    public static final List<String> VEX = new ArrayList<>();
 
-    public static void addToDings(File[] files)
+    /**
+     * Adds a list of file paths to a specific list
+     * @param files the files to save the paths for
+     * @param list the list to save the file paths to
+     */
+    public static void addToFileList(File[] files, List<String> list)
     {
-        Arrays.stream(files).map(File::getPath).forEach(DING_CLIPS::add);
+        Arrays.stream(files).map(File::getPath).forEach(list::add);
     }
 
-    public static void addToSmallBlockers(File[] files)
-    {
-        Arrays.stream(files).map(File::getPath).forEach(SMALL_BLOCKER::add);
-    }
-
-    public static void addToHostiles(File[] files)
-    {
-        Arrays.stream(files).map(File::getPath).forEach(HOSTILES::add);
-    }
-
-    public static void addToVex(File[] files)
-    {
-        Arrays.stream(files).map(File::getPath).forEach(VEX::add);
-    }
-
-    public static String randomDing()
+    /**
+     * Gets a random clip from a specific list
+     * @param list the list to get the clip from
+     * @return a String path to an audio file
+     */
+    public static String randomAudioFile(List<String> list)
     {
         Random random = new Random();
-        int index = random.nextInt(DING_CLIPS.size());
-        return DING_CLIPS.get(index);
-    }
-
-    public static String randomSmall()
-    {
-        Random random = new Random();
-        int index = random.nextInt(SMALL_BLOCKER.size());
-        return SMALL_BLOCKER.get(index);
+        int index = random.nextInt(list.size());
+        return list.get(index);
     }
 
 }

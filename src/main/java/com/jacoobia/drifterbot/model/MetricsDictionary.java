@@ -3,6 +3,11 @@ package com.jacoobia.drifterbot.model;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * A dictionary of the metrics ID's just for easily
+ * grabbing them from the database without the use of
+ * magic numbers.
+ */
 @Getter
 @AllArgsConstructor
 public enum MetricsDictionary
