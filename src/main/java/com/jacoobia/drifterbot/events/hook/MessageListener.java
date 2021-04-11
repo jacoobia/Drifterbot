@@ -1,11 +1,8 @@
 package com.jacoobia.drifterbot.events.hook;
 
 import com.jacoobia.drifterbot.commands.CommandProcessor;
-import com.jacoobia.drifterbot.commands.impl.BankCommand;
+import com.jacoobia.drifterbot.commands.impl.*;
 import com.jacoobia.drifterbot.commands.Command;
-import com.jacoobia.drifterbot.commands.impl.DingCommand;
-import com.jacoobia.drifterbot.commands.impl.HostilesCommand;
-import com.jacoobia.drifterbot.commands.impl.MetricsCommand;
 import com.jacoobia.drifterbot.model.channels.MessageHandler;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -31,6 +28,8 @@ public class MessageListener extends ListenerAdapter
         commandProcessors.add(new MetricsCommand());
         commandProcessors.add(new BankCommand());
         commandProcessors.add(new HostilesCommand());
+        commandProcessors.add(new VexCommand());
+        commandProcessors.add(new InvadeCommand());
     }
 
     /**

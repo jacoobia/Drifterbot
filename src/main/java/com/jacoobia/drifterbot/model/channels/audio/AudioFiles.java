@@ -1,8 +1,8 @@
 package com.jacoobia.drifterbot.model.channels.audio;
 
-import java.io.File;
+import org.apache.commons.collections4.CollectionUtils;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -19,15 +19,16 @@ public class AudioFiles
     public static final List<String> LARGE_BLOCKER = new ArrayList<>();
     public static final List<String> HOSTILES = new ArrayList<>();
     public static final List<String> VEX = new ArrayList<>();
+    public static final List<String> INVADE = new ArrayList<>();
 
     /**
      * Adds a list of file paths to a specific list
      * @param files the files to save the paths for
      * @param list the list to save the file paths to
      */
-    public static void addToFileList(File[] files, List<String> list)
+    public static void addToFileList(List<String > files, List<String> list)
     {
-        Arrays.stream(files).map(File::getPath).forEach(list::add);
+        CollectionUtils.addAll(list, files);
     }
 
     /**
