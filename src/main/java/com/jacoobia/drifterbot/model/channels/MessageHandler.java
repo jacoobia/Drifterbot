@@ -115,17 +115,15 @@ public class MessageHandler
      */
     public static String[] getArgs(Message message)
     {
-        String[] resized = new String[5];
-        if(hasArgs(message))
+        String[] args = new String[5];
+        String[] split = splitMessage(message);
+        for(int i = 1; i < split.length; i++)
         {
-            String[] full = splitMessage(message);
-            for (int i = 0; i < resized.length; i++)
-            {
-                if (i > 0)
-                    resized[i - 1] = full[i];
-            }
+            int argsIndex = i - 1;
+            if(argsIndex < 5)
+                args[argsIndex] = split[i];
         }
-        return resized;
+        return args;
     }
 
     /**
