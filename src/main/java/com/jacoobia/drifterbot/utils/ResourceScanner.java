@@ -12,7 +12,13 @@ import java.util.Objects;
 public class ResourceScanner
 {
 
-    public List<String > scanPath(String path)
+    /**
+     * Checks if it's ran in the dev env or if it's deployed as a jar then
+     * dynamically picks what location to load the audio resources from
+     * @param path the sub-path for the audio files
+     * @return a list of file directories
+     */
+    public List<String> scanPath(String path)
     {
         List<String> paths = new ArrayList<>();
         final File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());

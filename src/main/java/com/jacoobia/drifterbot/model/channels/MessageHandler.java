@@ -119,7 +119,7 @@ public class MessageHandler
         if(hasArgs(message))
         {
             String[] full = splitMessage(message);
-            for (int i = 0; i < full.length; i++)
+            for (int i = 0; i < resized.length; i++)
             {
                 if (i > 0)
                     resized[i - 1] = full[i];
