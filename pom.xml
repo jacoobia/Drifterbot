@@ -69,13 +69,13 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.jacoobia.VexBuddiesBot.Bot</mainClass>
+                            <mainClass>com.jacoobia.drifterbot.Drifter</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
-                    <finalName>VexBuddiesBot</finalName>
+                    <finalName>DrifterBot</finalName>
                 </configuration>
             </plugin>
             <plugin>
