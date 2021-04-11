@@ -9,7 +9,6 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.net.URISyntaxException;
 import java.util.Objects;
 
 /**
@@ -39,9 +38,11 @@ public class ReadyListener extends ListenerAdapter
         StringUtils.print("Bot seeded. Ready for use.");
     }
 
-    private File[] loadFilesFromDir(String dir) throws URISyntaxException
+    private File[] loadFilesFromDir(String dir)
     {
-        return new File(Objects.requireNonNull(getClass().getResource(dir)).toURI()).listFiles();
+        String path = Objects.requireNonNull(getClass().getResource(dir)).getPath();
+        File folder = new File(path);
+        return folder.listFiles();
     }
 
 }
