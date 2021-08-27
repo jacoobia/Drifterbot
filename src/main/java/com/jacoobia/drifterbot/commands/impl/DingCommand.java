@@ -17,17 +17,14 @@ import org.apache.ibatis.session.SqlSession;
  * A command to play a random "ding" audio clip and increase the total
  * count of audio clips in the metrics table
  */
-public class DingCommand implements CommandProcessor
-{
+public class DingCommand implements CommandProcessor {
 
     private static final String COMMAND_NAME = "ding";
 
     @Override
-    public void process(Command command)
-    {
+    public void process(Command command) {
         VoiceChannel voiceChannel = command.getVoiceChannel();
-        if(voiceChannel != null)
-        {
+        if(voiceChannel != null) {
             String clip = AudioFiles.randomAudioFile(AudioFiles.DING_CLIPS);
             DrifterGuild guild = GuildRegister.getGuild(command.getGuild().getId());
             guild.queueClip(clip, voiceChannel);
@@ -36,17 +33,15 @@ public class DingCommand implements CommandProcessor
     }
 
     @Override
-    public boolean relevantCommand(String command)
-    {
-        return command.equals(COMMAND_NAME) || command.startsWith(COMMAND_NAME);
+    public boolean relevantCommand(String command) {
+        return command.startsWith(COMMAND_NAME);
     }
 
     /**
      * Load the current total number of dings to date,
      * increment it by 1 and then save it again
      */
-    private void incrementTotal()
-    {
+    private void incrementTotal() {
         SqlSession session = Drifter.sessionFactory.getSession();
         MetricsMapper mapper = SessionFactory.getMetricsMapper(session);
         Metrics total = mapper.findById(MetricsDictionary.TOTAL_DINGS.getId());

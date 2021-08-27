@@ -16,14 +16,12 @@ import java.util.ArrayList;
  * Currently only the {@link GuildMessageReceivedEvent} is implemented since
  * this bot only works with server commands not DM commands.
  */
-public class MessageListener extends ListenerAdapter
-{
+public class MessageListener extends ListenerAdapter {
 
     private static final ArrayList<CommandProcessor> commandProcessors = new ArrayList<>();
 
     /* Register our command processors here! */
-    static
-    {
+    static {
         commandProcessors.add(new DingCommand());
         commandProcessors.add(new MetricsCommand());
         commandProcessors.add(new BankCommand());
@@ -37,24 +35,20 @@ public class MessageListener extends ListenerAdapter
      * one for the command that was used and process the command.
      * @param command the command arguments object to process
      */
-    private void processCommands(Command command)
-    {
-        for(CommandProcessor processor : commandProcessors)
-        {
+    private void processCommands(Command command) {
+        for(CommandProcessor processor : commandProcessors) {
             if(processor.relevantCommand(command.getName()))
                 processor.process(command);
         }
     }
 
     @Override
-    public void onGuildMessageReceived(@NotNull GuildMessageReceivedEvent event)
-    {
+    public void onGuildMessageReceived(@NotNull GuildMessageReceivedEvent event) {
         if(event.getAuthor().isBot()) return;
         Message message = event.getMessage();
         String command = MessageHandler.getCommand(message);
         String[] args = MessageHandler.getArgs(message);
-        if(command.startsWith("!"))
-        {
+        if(command.startsWith("!")) {
             String[] split = command.split("!");
             processCommands(new Command(event.getGuild(), event.getChannel(), event.getMember(), split[1], args));
         }

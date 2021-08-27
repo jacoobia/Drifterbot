@@ -18,16 +18,14 @@ import org.apache.ibatis.session.SqlSession;
  * A command to play a random "bank N" audio clip and increase the count of motes
  * banked in the metrics table
  */
-public class BankCommand implements CommandProcessor
-{
+public class BankCommand implements CommandProcessor {
 
     private static final int SMALL_BLOCKER = 5;
     private static final int MEDIUM_BLOCKER = 10;
     private static final int LARGE_BLOCKER = 15;
 
     @Override
-    public void process(Command command)
-    {
+    public void process(Command command)  {
         String arg = command.getArgs()[0];
         try {
             int count = Integer.parseInt(arg);
@@ -40,8 +38,7 @@ public class BankCommand implements CommandProcessor
             else if(LARGE_BLOCKER == count)
                 clip = AudioFiles.randomAudioFile(AudioFiles.LARGE_BLOCKER);
 
-            if(clip != null)
-            {
+            if(clip != null) {
                 queueClip(command, clip);
                 updateMotes(count);
             }
@@ -51,24 +48,20 @@ public class BankCommand implements CommandProcessor
     }
 
     @Override
-    public boolean relevantCommand(String command)
-    {
+    public boolean relevantCommand(String command) {
         return command.equalsIgnoreCase("bank");
     }
 
-    private void queueClip(Command command, String clip)
-    {
+    private void queueClip(Command command, String clip) {
         VoiceChannel voiceChannel = command.getVoiceChannel();
-        if(voiceChannel != null)
-        {
+        if(voiceChannel != null) {
             DrifterGuild guild = GuildRegister.getGuild(command.getGuild().getId());
             ChannelHandler.connect(voiceChannel);
             guild.queueClip(clip, voiceChannel);
         }
     }
 
-    private void updateMotes(int count)
-    {
+    private void updateMotes(int count) {
         SqlSession session = Drifter.sessionFactory.getSession();
         MetricsMapper mapper = SessionFactory.getMetricsMapper(session);
         Metrics total = mapper.findById(MetricsDictionary.MOTES_BANKED.getId());

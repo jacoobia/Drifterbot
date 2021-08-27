@@ -14,13 +14,11 @@ import static com.jacoobia.drifterbot.utils.PropertyFileReader.read;
  * only used once but keeps things small and neat and builds our
  * {@link MysqlDataSource} object.
  */
-public class DataSourceFactory
-{
+public class DataSourceFactory {
 
     @Getter
     @AllArgsConstructor
-    protected enum DataSourceProperty
-    {
+    protected enum DataSourceProperty {
         URL("database.url"),
         DRIVER("database.driver"),
         USER("database.user"),
@@ -34,8 +32,7 @@ public class DataSourceFactory
      * details and then build our datasource
      * @return a {@link MysqlDataSource} object
      */
-    public static DataSource getDataSource()
-    {
+    public static DataSource getDataSource() {
         MysqlDataSource dataSource = new MysqlDataSource();
         dataSource.setURL(read(URL.getProperty()));
         dataSource.setUser(read(USER.getProperty()));

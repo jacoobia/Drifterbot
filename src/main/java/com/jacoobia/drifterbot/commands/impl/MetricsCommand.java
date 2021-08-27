@@ -16,11 +16,9 @@ import java.util.List;
 /**
  * A command to show the current metrics for the bot
  */
-public class MetricsCommand implements CommandProcessor
-{
+public class MetricsCommand implements CommandProcessor {
     @Override
-    public void process(Command command)
-    {
+    public void process(Command command) {
         SqlSession session = Drifter.sessionFactory.getSession();
         MetricsMapper mapper = SessionFactory.getMetricsMapper(session);
         List<Metrics> metrics = mapper.findAll();
@@ -40,8 +38,7 @@ public class MetricsCommand implements CommandProcessor
     }
 
     @Override
-    public boolean relevantCommand(String command)
-    {
+    public boolean relevantCommand(String command) {
         return command.equalsIgnoreCase("metrics");
     }
 }

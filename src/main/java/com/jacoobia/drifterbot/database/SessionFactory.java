@@ -19,13 +19,11 @@ import javax.sql.DataSource;
  * since we only require basic thing such as select, update etc then using annotations
  * is way less boilerplate code.
  */
-public class SessionFactory
-{
+public class SessionFactory {
 
     private final SqlSessionFactory sqlSessionFactory;
 
-    public SessionFactory()
-    {
+    public SessionFactory() {
         DataSource dataSource = DataSourceFactory.getDataSource();
         TransactionFactory transactionFactory = new JdbcTransactionFactory();
         Environment environment = new Environment("development", transactionFactory, dataSource);
@@ -35,13 +33,11 @@ public class SessionFactory
         sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
     }
 
-    public SqlSession getSession()
-    {
+    public SqlSession getSession() {
         return sqlSessionFactory.openSession();
     }
 
-    public static MetricsMapper getMetricsMapper(SqlSession session)
-    {
+    public static MetricsMapper getMetricsMapper(SqlSession session) {
         return session.getMapper(MetricsMapper.class);
     }
 

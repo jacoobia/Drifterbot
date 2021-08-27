@@ -11,8 +11,7 @@ import java.util.List;
  * The mapper for our basic table operations for the {@link Metrics} table
  */
 @Mapper
-public interface MetricsMapper
-{
+public interface MetricsMapper {
 
     @Select("select * from drifter_metrics where id = #{id}")
     Metrics findById(Integer id);

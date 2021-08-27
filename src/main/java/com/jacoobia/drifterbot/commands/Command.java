@@ -16,8 +16,7 @@ import net.dv8tion.jda.api.entities.VoiceChannel;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Command
-{
+public class Command {
 
     private Guild guild;
     private MessageChannel channel;
@@ -25,8 +24,7 @@ public class Command
     private String name;
     private String[] args;
 
-    public VoiceChannel getVoiceChannel()
-    {
+    public VoiceChannel getVoiceChannel() {
         return GuildUtils.getMemberVoiceChannel(guild, member);
     }
 

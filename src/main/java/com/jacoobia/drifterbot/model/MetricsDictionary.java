@@ -10,8 +10,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum MetricsDictionary
-{
+public enum MetricsDictionary {
 
     UNIQUE_USERS(1),
     TOTAL_DINGS(2),

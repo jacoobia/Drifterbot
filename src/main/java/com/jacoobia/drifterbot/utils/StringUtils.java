@@ -11,8 +11,7 @@ import java.util.List;
  * updated to include some blank checks.
  */
 @SuppressWarnings("unused")
-public class StringUtils
-{
+public class StringUtils {
 
     public static String NEW_LINE = "\n";
 
@@ -22,8 +21,7 @@ public class StringUtils
      * @param string the string to check
      * @return boolean is the string empty, blank or null
      */
-    public static boolean isEmpty(String string)
-    {
+    public static boolean isEmpty(String string) {
         return string == null || string.isEmpty() || isBlank(string);
     }
 
@@ -33,8 +31,7 @@ public class StringUtils
      * @param string the string to check
      * @return boolean is it blank or not
      */
-    public static boolean isBlank(String string)
-    {
+    public static boolean isBlank(String string) {
         String[] arr = string.split("(?!^)");
         int length = string.length();
         int blanks = (int) Arrays.stream(arr).filter(" "::equals).count();
@@ -45,8 +42,7 @@ public class StringUtils
      * Prints a message to the console without colour control
      * @param message the message to print with a timestamp
      */
-    public static void print(String message)
-    {
+    public static void print(String message) {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         String prefix = sdf.format(new Date());
         System.out.println("[" + prefix + "]: " + message);
@@ -57,8 +53,7 @@ public class StringUtils
      * one by one to the console.
      * @param messages the messages you wanna print
      */
-    public static void printMultiLine(String... messages)
-    {
+    public static void printMultiLine(String... messages) {
         Arrays.stream(messages).forEach(StringUtils::print);
     }
 
@@ -70,8 +65,7 @@ public class StringUtils
      * @param s string input
      * @return our converted string
      */
-    public static String replaceNumberShortcuts(String s)
-    {
+    public static String replaceNumberShortcuts(String s) {
         final String B = "000000000";
         final String M = "000000";
         final String K = "000";
@@ -89,8 +83,7 @@ public class StringUtils
      * Converts a byte buffer to a string for parsing/reading
      * @param in the byte buffer input
      */
-    public static synchronized String bufferToString(ByteBuffer in)
-    {
+    public static synchronized String bufferToString(ByteBuffer in) {
         StringBuilder builder = new StringBuilder();
         byte date;
         while ((date = in.get()) != 10)
@@ -104,20 +97,15 @@ public class StringUtils
      * Capitalize the first letter of each word in a string
      * @param str the string to capitalize
      */
-    public static String capitalize(String str)
-    {
-        for (int i = 0; i < str.length(); i++)
-        {
-            if (i == 0)
-            {
+    public static String capitalize(String str) {
+        for (int i = 0; i < str.length(); i++) {
+            if (i == 0) {
                 str = String.format("%s%s",
                         Character.toUpperCase(str.charAt(0)),
                         str.substring(1));
             }
-            if (!Character.isLetterOrDigit(str.charAt(i)))
-            {
-                if (i + 1 < str.length())
-                {
+            if (!Character.isLetterOrDigit(str.charAt(i))) {
+                if (i + 1 < str.length()) {
                     str = String.format("%s%s%s",
                             str.subSequence(0, i + 1),
                             Character.toUpperCase(str.charAt(i + 1)),
@@ -133,15 +121,12 @@ public class StringUtils
      * @param s string input
      * @return integer output
      */
-    public static int parseInt(String s)
-    {
+    public static int parseInt(String s) {
         int i = 0;
-        try
-        {
+        try {
             String parse = replaceNumberShortcuts(s);
             i = Integer.parseInt(parse);
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             print("Input was not strictly an int string.");
         }
         return i;
@@ -152,11 +137,9 @@ public class StringUtils
      * @param in list of strings
      * @return a built string
      */
-    public static String listToString(List<String> in)
-    {
+    public static String listToString(List<String> in) {
         StringBuilder out = new StringBuilder();
-        for (String s : in)
-        {
+        for (String s : in) {
             out.append(s);
             if (in.indexOf(s) != (in.size() - 1))
                 out.append(" ");
@@ -171,14 +154,11 @@ public class StringUtils
      * @param str the string to check
      * @return bool is it numberic
      */
-    public static boolean isNumeric(String str)
-    {
-        try
-        {
+    public static boolean isNumeric(String str) {
+        try {
             Double.parseDouble(str);
             return true;
-        } catch(NumberFormatException e)
-        {
+        } catch(NumberFormatException e) {
             return false;
         }
     }
@@ -189,8 +169,7 @@ public class StringUtils
      * @param any the variable length list of strings to check
      * @return bool did any of them match the value
      */
-    public static boolean anyEqualsIgnoreCase(String value, String... any)
-    {
+    public static boolean anyEqualsIgnoreCase(String value, String... any) {
         return Arrays.stream(any).anyMatch(other -> other.equalsIgnoreCase(value));
     }
 

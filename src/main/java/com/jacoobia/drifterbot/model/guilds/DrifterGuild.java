@@ -25,8 +25,7 @@ import net.dv8tion.jda.api.entities.VoiceChannel;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DrifterGuild
-{
+public class DrifterGuild {
 
     private String guildId;
     private Guild guild;
@@ -41,8 +40,7 @@ public class DrifterGuild
      * to send (and potentially receive) audio
      * @param guild the guild to create the audio tunnel/channel for
      */
-    public void createAudioChannel(Guild guild)
-    {
+    public void createAudioChannel(Guild guild) {
         playerManager = new DefaultAudioPlayerManager();
         AudioSourceManagers.registerLocalSource(playerManager);
 
@@ -56,8 +54,7 @@ public class DrifterGuild
      * @param clip the directory path to the clip
      * @param channel the voice channel it's queue'd for
      */
-    public void queueClip(String clip, VoiceChannel channel)
-    {
+    public void queueClip(String clip, VoiceChannel channel) {
         playerManager.loadItem(clip, new LoadResult(channel));
     }
 
@@ -67,42 +64,35 @@ public class DrifterGuild
      * When a single clip or multiple clips were successfully loaded then
      * queue said clips and connect to the voice channel ready to play
      */
-    protected class LoadResult implements AudioLoadResultHandler
-    {
+    protected class LoadResult implements AudioLoadResultHandler {
 
         private final VoiceChannel channel;
 
-        LoadResult(VoiceChannel channel)
-        {
+        LoadResult(VoiceChannel channel) {
             this.channel = channel;
         }
 
         @Override
-        public void trackLoaded(AudioTrack audioTrack)
-        {
+        public void trackLoaded(AudioTrack audioTrack) {
             scheduler.queue(audioTrack);
             ChannelHandler.connect(channel);
         }
 
         @Override
-        public void playlistLoaded(AudioPlaylist audioPlaylist)
-        {
-            for (AudioTrack clip : audioPlaylist.getTracks())
-            {
+        public void playlistLoaded(AudioPlaylist audioPlaylist) {
+            for (AudioTrack clip : audioPlaylist.getTracks()) {
                 scheduler.queue(clip);
             }
             ChannelHandler.connect(channel);
         }
 
         @Override
-        public void noMatches()
-        {
+        public void noMatches() {
             System.out.println("no matches!");
         }
 
         @Override
-        public void loadFailed(FriendlyException e)
-        {
+        public void loadFailed(FriendlyException e) {
             System.out.println("failed to load!");
         }
 

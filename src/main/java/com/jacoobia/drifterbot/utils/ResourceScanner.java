@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ResourceScanner
-{
+public class ResourceScanner {
 
     /**
      * Checks if it's ran in the dev env or if it's deployed as a jar then
@@ -18,31 +17,22 @@ public class ResourceScanner
      * @param path the sub-path for the audio files
      * @return a list of file directories
      */
-    public List<String> scanPath(String path)
-    {
+    public List<String> scanPath(String path) {
         List<String> paths = new ArrayList<>();
         final File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
-
-        if(jarFile.isFile())
-        {
+        if(jarFile.isFile()) {
             final File folder = new File(jarFile.getParent() + "/" + path);
             System.out.println(folder.getPath());
             for(File file : Objects.requireNonNull(folder.listFiles()))
                 paths.add(file.getPath());
-        }
-        else
-        {
+        } else {
             final URL url = Drifter.class.getResource("/" + path);
-            if (url != null)
-            {
-                try
-                {
+            if (url != null) {
+                try {
                     final File apps = new File(url.toURI());
                     for (File app : Objects.requireNonNull(apps.listFiles()))
                         paths.add(app.getPath());
-                }
-                catch (URISyntaxException e)
-                {
+                } catch (URISyntaxException e) {
                     e.printStackTrace();
                 }
             }

@@ -13,25 +13,21 @@ import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 import java.util.EnumSet;
 
-public class Drifter
-{
+public class Drifter {
 
     private static JDA jda;
     public static String guildId;
 
     public static SessionFactory sessionFactory;
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         guildId = args[1];
-        try
-        {
+        try {
             sessionFactory = new SessionFactory();
 
             EnumSet<GatewayIntent> intents = EnumSet.of(
                     GatewayIntent.GUILD_MESSAGES,
-                    GatewayIntent.GUILD_VOICE_STATES
-            );
+                    GatewayIntent.GUILD_VOICE_STATES);
 
             jda = JDABuilder.createLight(args[0], intents)
                     .setActivity(Activity.watching("some Gambit matches."))
@@ -40,16 +36,13 @@ public class Drifter
                     .build();
 
             registerEvents();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);
         }
     }
 
-    private static void registerEvents()
-    {
+    private static void registerEvents() {
         jda.addEventListener(new MessageListener());
         jda.addEventListener(new ReadyListener());
         jda.addEventListener(new JoinLeaveListener());

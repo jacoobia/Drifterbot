@@ -10,8 +10,7 @@ import java.util.Map;
  * for each {@link Guild} the bot is a part of, this allows the bot to
  * work for multiple servers at once.
  */
-public class GuildRegister
-{
+public class GuildRegister {
 
     /**
      * The registry for guilds
@@ -23,8 +22,7 @@ public class GuildRegister
      * @param id the ID of the discord guild
      * @return null or {@link DrifterGuild} object
      */
-    public static DrifterGuild getGuild(String id)
-    {
+    public static DrifterGuild getGuild(String id) {
         return GUILD_REGISTRY.get(id);
     }
 
@@ -33,8 +31,7 @@ public class GuildRegister
      * and stores it in our registry to be used later down the line.
      * @param guild the guild to register.
      */
-    public static void registerGuild(Guild guild)
-    {
+    public static void registerGuild(Guild guild) {
         DrifterGuild drifterGuild = new DrifterGuild();
         drifterGuild.setGuildId(guild.getId());
         drifterGuild.setGuild(guild);
@@ -47,8 +44,7 @@ public class GuildRegister
      * was to be kicked from the server.
      * @param id the ID of the discord guild to deregister
      */
-    public static void deregisterGuild(String id)
-    {
+    public static void deregisterGuild(String id) {
         GUILD_REGISTRY.remove(id);
     }
 

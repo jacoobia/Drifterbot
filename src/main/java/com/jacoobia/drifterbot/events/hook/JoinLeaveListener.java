@@ -10,19 +10,16 @@ import org.jetbrains.annotations.NotNull;
 /**
  * A listener class for the {@link GuildJoinEvent} and {@link GuildLeaveEvent}
  */
-public class JoinLeaveListener extends ListenerAdapter
-{
+public class JoinLeaveListener extends ListenerAdapter {
 
     @Override
-    public void onGuildJoin(@NotNull GuildJoinEvent event)
-    {
+    public void onGuildJoin(@NotNull GuildJoinEvent event) {
         Guild guild = event.getGuild();
         GuildRegister.registerGuild(guild);
     }
 
     @Override
-    public void onGuildLeave(@NotNull GuildLeaveEvent event)
-    {
+    public void onGuildLeave(@NotNull GuildLeaveEvent event) {
         Guild guild = event.getGuild();
         GuildRegister.deregisterGuild(guild.getId());
     }

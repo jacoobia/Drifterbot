@@ -15,8 +15,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * of audio clips and also handles the actions of playing audio clips such
  * as the clip ending, a clip being interrupted etc.
  */
-public class ClipScheduler extends AudioEventAdapter
-{
+public class ClipScheduler extends AudioEventAdapter {
 
     private final BlockingQueue<AudioTrack> queue;
 
@@ -30,8 +29,7 @@ public class ClipScheduler extends AudioEventAdapter
     }
 
     @Override
-    public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason)
-    {
+    public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
         if(queue.isEmpty())
             ChannelHandler.disconnect(guild);
         else
@@ -42,8 +40,7 @@ public class ClipScheduler extends AudioEventAdapter
     /**
      * Polls for the next clip from the queue and plays it
      */
-    public void nextTrack()
-    {
+    public void nextTrack() {
         player.startTrack(queue.poll(), false);
     }
 
@@ -51,10 +48,8 @@ public class ClipScheduler extends AudioEventAdapter
      * Queues a new clip
      * @param clip the clip to queue
      */
-    public void queue(AudioTrack clip)
-    {
-        if (!player.startTrack(clip, true))
-        {
+    public void queue(AudioTrack clip) {
+        if (!player.startTrack(clip, true)) {
             queue.offer(clip);
         }
     }

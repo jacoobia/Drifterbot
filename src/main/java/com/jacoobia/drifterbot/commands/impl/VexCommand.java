@@ -10,15 +10,12 @@ import net.dv8tion.jda.api.entities.VoiceChannel;
 /**
  * A command to play a random "vex" audio clip
  */
-public class VexCommand implements CommandProcessor
-{
+public class VexCommand implements CommandProcessor {
 
     @Override
-    public void process(Command command)
-    {
+    public void process(Command command) {
         VoiceChannel voiceChannel = command.getVoiceChannel();
-        if(voiceChannel != null)
-        {
+        if(voiceChannel != null) {
             String clip = AudioFiles.randomAudioFile(AudioFiles.VEX);
             DrifterGuild guild = GuildRegister.getGuild(command.getGuild().getId());
             guild.queueClip(clip, voiceChannel);
@@ -26,8 +23,7 @@ public class VexCommand implements CommandProcessor
     }
 
     @Override
-    public boolean relevantCommand(String command)
-    {
+    public boolean relevantCommand(String command) {
         return command.equalsIgnoreCase("vex");
     }
 

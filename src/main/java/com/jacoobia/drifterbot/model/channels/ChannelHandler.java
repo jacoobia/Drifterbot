@@ -13,19 +13,16 @@ import net.dv8tion.jda.api.managers.AudioManager;
  * also opens and closes the audio sending channel for whatever
  * guild the bot is joining or leaving a channel in.
  */
-public class ChannelHandler
-{
+public class ChannelHandler {
 
     /**
      * Connects the bot to a voice channel and opens the audio sending
      * channel for that guild
      * @param channel the channel to connect to
      */
-    public static void connect(VoiceChannel channel)
-    {
+    public static void connect(VoiceChannel channel) {
         Guild guild = channel.getGuild();
-        if (GuildUtils.getMemberVoiceChannel(guild, guild.getSelfMember()) == null)
-        {
+        if (GuildUtils.getMemberVoiceChannel(guild, guild.getSelfMember()) == null) {
             DrifterGuild drifterGuild = GuildRegister.getGuild(guild.getId());
             AudioManager audioManager = guild.getAudioManager();
             AudioSender sender = new AudioSender(drifterGuild.getPlayer());
@@ -40,8 +37,7 @@ public class ChannelHandler
      * audio sending channel
      * @param guild the guild to disconnect from
      */
-    public static void disconnect(Guild guild)
-    {
+    public static void disconnect(Guild guild) {
         AudioManager audioManager = guild.getAudioManager();
         audioManager.closeAudioConnection();
     }

@@ -12,33 +12,28 @@ import java.nio.ByteBuffer;
  * to whatever {@link VoiceChannel} the bot is connected
  * to in a server.
  */
-public class AudioSender implements AudioSendHandler
-{
+public class AudioSender implements AudioSendHandler {
 
     private final AudioPlayer audioPlayer;
     private AudioFrame lastFrame;
 
-    public AudioSender(AudioPlayer audioPlayer)
-    {
+    public AudioSender(AudioPlayer audioPlayer) {
         this.audioPlayer = audioPlayer;
     }
 
     @Override
-    public boolean canProvide()
-    {
+    public boolean canProvide() {
         lastFrame = audioPlayer.provide();
         return lastFrame != null;
     }
 
     @Override
-    public ByteBuffer provide20MsAudio()
-    {
+    public ByteBuffer provide20MsAudio() {
         return ByteBuffer.wrap(lastFrame.getData());
     }
 
     @Override
-    public boolean isOpus()
-    {
+    public boolean isOpus() {
         return true;
     }
 }

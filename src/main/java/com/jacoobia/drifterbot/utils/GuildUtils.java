@@ -4,8 +4,7 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 
-public class GuildUtils
-{
+public class GuildUtils {
 
     /**
      * Grabs the {@link VoiceChannel} in a Guild that a member is
@@ -14,10 +13,8 @@ public class GuildUtils
      * @param member the member who we're trying to locate
      * @return either null or a {@link VoiceChannel}
      */
-    public static VoiceChannel getMemberVoiceChannel(Guild guild, Member member)
-    {
-        for(VoiceChannel channel : guild.getVoiceChannels())
-        {
+    public static VoiceChannel getMemberVoiceChannel(Guild guild, Member member) {
+        for(VoiceChannel channel : guild.getVoiceChannels()) {
             if(channel.getMembers().contains(member))
                 return channel;
         }

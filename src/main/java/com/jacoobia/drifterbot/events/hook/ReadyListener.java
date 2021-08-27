@@ -12,16 +12,13 @@ import org.jetbrains.annotations.NotNull;
 /**
  * The ready listener to listen for the {@link ReadyEvent}
  */
-public class ReadyListener extends ListenerAdapter
-{
+public class ReadyListener extends ListenerAdapter {
 
     @Override
-    public void onReady(@NotNull ReadyEvent event)
-    {
+    public void onReady(@NotNull ReadyEvent event) {
         for (Guild guild : event.getJDA().getGuilds())
             GuildRegister.registerGuild(guild);
-        try
-        {
+        try {
             ResourceScanner scanner = new ResourceScanner();
 
             AudioFiles.addToFileList(scanner.scanPath("audio/dings"), AudioFiles.DING_CLIPS);
@@ -32,12 +29,9 @@ public class ReadyListener extends ListenerAdapter
             AudioFiles.addToFileList(scanner.scanPath("audio/vex"), AudioFiles.VEX);
             AudioFiles.addToFileList(scanner.scanPath("audio/invade"), AudioFiles.INVADE);
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
         StringUtils.print("Bot seeded. Ready for use.");
     }
 

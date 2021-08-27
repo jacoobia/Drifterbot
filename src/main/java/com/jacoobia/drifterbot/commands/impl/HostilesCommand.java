@@ -11,15 +11,12 @@ import net.dv8tion.jda.api.entities.VoiceChannel;
 /**
  * A command to play a random "hostiles" audio clip
  */
-public class HostilesCommand implements CommandProcessor
-{
+public class HostilesCommand implements CommandProcessor {
 
     @Override
-    public void process(Command command)
-    {
+    public void process(Command command) {
         VoiceChannel voiceChannel = command.getVoiceChannel();
-        if(voiceChannel != null)
-        {
+        if(voiceChannel != null) {
             String clip = AudioFiles.randomAudioFile(AudioFiles.HOSTILES);
             DrifterGuild guild = GuildRegister.getGuild(command.getGuild().getId());
             guild.queueClip(clip, voiceChannel);
@@ -27,8 +24,7 @@ public class HostilesCommand implements CommandProcessor
     }
 
     @Override
-    public boolean relevantCommand(String command)
-    {
+    public boolean relevantCommand(String command) {
         return StringUtils.anyEqualsIgnoreCase(command, "hostiles", "enemies");
     }
 
